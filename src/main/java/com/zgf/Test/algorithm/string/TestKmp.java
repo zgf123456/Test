@@ -2,12 +2,14 @@ package com.zgf.Test.algorithm.string;
 
 import java.util.Arrays;
 
+import org.junit.Test;
+
 public class TestKmp {
 	public static void main(String[] args) {
 		String source = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab";
 		String target = "afafb";
 
-		 System.out.println("next数组"+Arrays.toString(buildNextArray(target)));
+		System.out.println("next数组"+Arrays.toString(buildNextArray(target)));
 
 		int index = simpleMatch(source, target);
 		System.out.println("匹配位置" + index);
@@ -20,6 +22,12 @@ public class TestKmp {
 		if (index != -1) {
 			System.out.println(source.substring(index, index + target.length()));
 		}
+	}
+	
+	@Test
+	public void testBuildNextArray(){
+		String target = "ababa";
+		System.out.println("next数组"+Arrays.toString(buildNextArray(target)));
 	}
 
 	/**
