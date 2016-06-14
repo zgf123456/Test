@@ -7,9 +7,10 @@ import org.junit.Test;
 public class TestKmp {
 	public static void main(String[] args) {
 		String source = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaab";
-		String target = "afafb";
+		String target = "afbafb";
 
 		System.out.println("next数组"+Arrays.toString(buildNextArray(target)));
+		System.out.println("my next数组"+Arrays.toString(buildMyNextArray(target)));
 
 		int index = simpleMatch(source, target);
 		System.out.println("匹配位置" + index);
@@ -24,6 +25,24 @@ public class TestKmp {
 		}
 	}
 	
+	private static int[] buildMyNextArray(String target) {
+		int[] nextArray = new int[target.length()];
+		nextArray[0] = -1;
+		nextArray[1] = 0;
+		int pos = 0;
+		int comPos = -1;
+		while (pos < target.length() - 1) {
+			if (comPos == -1 || target.charAt(comPos) == target.charAt(pos)) {
+				pos++;
+				comPos++;
+				nextArray[pos] = comPos;
+			} else {
+				comPos = nextArray[comPos];
+			}
+		}
+		return nextArray;
+	}
+
 	@Test
 	public void testBuildNextArray(){
 		String target = "ababa";
