@@ -1,8 +1,6 @@
 package com.zgf.Test.junit4;
 
-import org.junit.FixMethodOrder;
 import org.junit.runner.RunWith;
-import org.junit.runners.MethodSorters;
 import org.junit.runners.Suite;
 
 /**
@@ -12,9 +10,11 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-  TestAssertion.class
+  TestAssertion.class,
+  TestException.class,
+  TestIgnoring.class,
+  TestTimeout.class
 })
-@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TestSuit {
 
 }
