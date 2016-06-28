@@ -19,11 +19,9 @@ public class TestRuleBase {
 
 	@Test
 	public void countsAssets() throws IOException {
-		File icon = tempFolder.newFile("icon.png");
+//		File icon = tempFolder.newFile("icon.png");
 		File assets = tempFolder.newFolder("assets");
 		createAssets(assets, 3);
-		System.out.println(icon.getAbsolutePath());
-		System.out.println(assets.getAbsolutePath());
 	}
 
 	private void createAssets(File assets, int numberOfAssets) throws IOException {
