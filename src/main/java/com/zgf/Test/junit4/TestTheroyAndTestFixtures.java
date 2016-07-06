@@ -10,6 +10,7 @@ import org.junit.experimental.theories.DataPoint;
 import org.junit.experimental.theories.DataPoints;
 import org.junit.experimental.theories.Theories;
 import org.junit.experimental.theories.Theory;
+import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 
 @RunWith(Theories.class)
@@ -43,7 +44,7 @@ public class TestTheroyAndTestFixtures {
 	}
 
 	@Theory
-	public void greaterThan0(Integer a) {
+	public void greaterThan0(@TestedOn(ints = { 1, 2, 3, 4 }) Integer a) {
 		System.out.println(">>>>" + a);
 		assertTrue(a > 0);
 	}
