@@ -7,10 +7,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ TestA.class, TestB.class })
-// @RunWith(SpringJUnit4ClassRunner.class)
-// @ContextConfiguration(locations = "classpath:applicationContext.xml")
-// @TransactionConfiguration(transactionManager="ns_transactionManager",
-// defaultRollback=false)
 public class TestMyAllSuite {
 	@SuppressWarnings("resource")
 	@BeforeClass
