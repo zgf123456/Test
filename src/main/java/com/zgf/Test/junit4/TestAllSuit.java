@@ -17,7 +17,8 @@ import com.zgf.Test.junit4.rules.TestRuleSuit;
 		TestException.class, //
 		TestIgnoring.class, //
 		TestTimeout.class, //
-		TestRuleSuit.class //
+		TestRuleSuit.class, //
+		TestTheroyAndTestFixtures.class //
 })
 public class TestAllSuit {
 
