@@ -1,8 +1,8 @@
-package com.zgf.Test.algorithm.string;
-
-import java.util.Arrays;
+package com.zgf.Test.aligorthm.exercise;
 
 import org.junit.Test;
+
+import java.util.Arrays;
 
 public class TestKmp {
 	public static void main(String[] args) {
