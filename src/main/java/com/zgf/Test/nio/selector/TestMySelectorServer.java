@@ -27,7 +27,6 @@ public class TestMySelectorServer {
             }
 
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
-            System.out.println("select keys " + selectionKeys);
 
             Iterator<SelectionKey> iterator = selectionKeys.iterator();
             while (iterator.hasNext()) {
@@ -37,10 +36,8 @@ public class TestMySelectorServer {
                     ServerSocketChannel channel = (ServerSocketChannel) selectionKey.channel();
 
                     SocketChannel socketChannel = channel.accept();
-                    if (socketChannel != null) {
-                        socketChannel.configureBlocking(false);
-                        socketChannel.register(selector, SelectionKey.OP_READ);
-                    }
+                    socketChannel.configureBlocking(false);
+                    socketChannel.register(selector, SelectionKey.OP_READ);
                 } else if (selectionKey.isReadable()) {
                     SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
 
@@ -56,6 +53,10 @@ public class TestMySelectorServer {
                         buffer.clear();
                     }
                 }
+//                else if (!selectionKey.isConnectable()) {
+//                    selectionKey.cancel();
+//                }
+                iterator.remove();
             }
         }
     }
