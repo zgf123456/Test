@@ -8,6 +8,18 @@ import java.util.Set;
 
 /**
  * Created by zgf on 17/6/6.
+ *
+ *
+ *
+ * 与没使用NIO之前的区别
+ *
+ * 1. 没使用NIO
+ *  每accept一次，就要new一个线程处理
+ *
+ * 2. 使用NIO
+ *  单一线程即可处理完服务，节省服务器资源。
+ *
+ *
  */
 public class TestMySelectorServer {
     public static void main(String[] args) throws Exception {
