@@ -6,6 +6,10 @@ import java.lang.reflect.Proxy;
 
 /**
  * Created by zgf on 17/6/15.
+ *
+ * 动态代理的优势
+ * 1. 是通用的代理类，无需实现接口
+ * 2. 所有方法统一代理，如果需要区分，需要写额外的代码
  */
 public class DynamicProxy {
     public static void main(String[] args) {
@@ -17,17 +21,19 @@ public class DynamicProxy {
 }
 
 class DynamicProxySend implements InvocationHandler {
-    private Send send;
+    private Object proxyObj;
 
-    public DynamicProxySend(Send send) {
-        this.send = send;
+    public DynamicProxySend(Object proxyObj) {
+        this.proxyObj = proxyObj;
     }
 
     @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         System.out.println("dynamicProxy before send");
-        method.invoke(send, args);
+        System.out.println("aop log start");
+        Object result = method.invoke(proxyObj, args);
+        System.out.println("aop log end");
         System.out.println("dynamicProxy after send");
-        return null;
+        return result;
     }
 }
