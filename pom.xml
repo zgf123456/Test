@@ -17,7 +17,7 @@
 		<springframework.version>4.0.0.RELEASE</springframework.version>
 		<aspectj.version>1.6.9</aspectj.version>
 		<slf4j.version>1.6.1</slf4j.version>
-		<logback.version>0.9.27</logback.version>
+		<logback.version>1.2.3</logback.version>
 	</properties>
 
 	<dependencies>
@@ -123,6 +123,24 @@
 			<version>${springframework.version}</version>
 			<type>pom</type>
 			<scope>import</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>1.52</version>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-ext-jdk15on</artifactId>
+			<version>1.52</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/javassist/javassist -->
+		<dependency>
+			<groupId>javassist</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.12.1.GA</version>
 		</dependency>
 
 		<dependency>
