@@ -5,7 +5,7 @@ import java.util.Random;
 import java.util.Stack;
 
 public class Shudu {
-    private static final int PX = 9;
+    public static final int PX = 9;
     private int[][] sdArr = new int[PX][PX];
     private Random random = new Random();
 
