@@ -22,8 +22,8 @@ public class GZGF {
             public void run() {
                 for (GWindow gWindow : gWindowArrayList) {
                     gWindow.frontShowMe();
-                    gWindow.eat();
-                    gWindow.dropLoad();
+                    gWindow.eat50(1);
+                    gWindow.dropLoadAll();
                 }
             }
         }, 5000, 60000);

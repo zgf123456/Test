@@ -34,13 +34,13 @@ public class GWindow {
         robot.mouseRelease(InputEvent.BUTTON1_MASK);
     }
 
-    // 吃料理
-    public void eat() {
+    // 吃50料理
+    public void eat50(int times) {
 
     }
 
     // 丢垃圾
-    public void dropLoad() {
+    public void dropLoadAll() {
 
     }
 }
