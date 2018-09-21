@@ -23,7 +23,7 @@ public class GZGF {
                 for (GWindow gWindow : gWindowArrayList) {
                     gWindow.frontShowMe();
                     gWindow.eat50(1);
-                    gWindow.dropLoadAll();
+                    gWindow.dropLoadAll(5);
                 }
             }
         }, 5000, 60000);

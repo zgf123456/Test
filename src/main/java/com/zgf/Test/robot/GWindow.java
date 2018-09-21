@@ -40,7 +40,13 @@ public class GWindow {
     }
 
     // 丢垃圾
-    public void dropLoadAll() {
+    public void dropLoadAll(int types) {
+        for(int i=0; i<types; i++) {
+            subDropLoadFirst();
+        }
+    }
+
+    private void subDropLoadFirst() {
 
     }
 }
