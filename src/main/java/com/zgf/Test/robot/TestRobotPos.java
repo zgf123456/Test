@@ -16,7 +16,8 @@ public class TestRobotPos {
             Point p = pinfo.getLocation();
             int mx = (int) p.getX();
             int my = (int) p.getY();
-            System.out.println("mx=" + mx + ",my=" + my);
+            Color pixelColor = robot.getPixelColor(mx, my);
+            System.out.println("mx=" + mx + ",my=" + my + ",c=" + pixelColor.toString());
             Thread.sleep(5000);
         }
     }
