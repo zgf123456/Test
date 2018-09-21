@@ -26,6 +26,6 @@ public class GZGF {
                     gWindow.dropLoad();
                 }
             }
-        }, 5000, 30000);
+        }, 5000, 60000);
     }
 }
