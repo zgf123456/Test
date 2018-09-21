@@ -8,7 +8,7 @@ import java.util.TimerTask;
 public class GZGF {
     public static void main(String[] args) throws Exception {
         Robot robot = new Robot();
-        robot.setAutoDelay(1000);
+        robot.setAutoDelay(500);
 
         // 初始化窗口
         ArrayList<GWindow> gWindowArrayList = new ArrayList<>();

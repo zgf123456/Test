@@ -2,6 +2,9 @@ package com.zgf.Test.robot;
 
 import java.awt.*;
 
+/**
+ * 坐标取点
+ */
 public class TestRobotPos {
     public static void main(String[] args) throws Exception {
 

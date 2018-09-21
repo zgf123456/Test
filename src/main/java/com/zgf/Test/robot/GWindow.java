@@ -17,6 +17,12 @@ public class GWindow {
     private int rightX;
     private int rightY;
 
+    // 各个关键点的坐标偏移量
+    private GPos gPos_boat = new GPos(600, 800);
+    private GPos gPos_load = new GPos(650, 850);
+    private GPos gPos_drop = new GPos(700, 900);
+    private GPos gPos_max = new GPos(700, 900);
+
     // 窗口位置
     public GWindow(Robot robot, int x, int y) {
         this.robot = robot;
@@ -46,7 +52,27 @@ public class GWindow {
         }
     }
 
+    public void move(GPos gpos) {
+        robot.mouseMove(leftX + gpos.getX(), leftY + gpos.getY());
+    }
+
     private void subDropLoadFirst() {
 
+    }
+
+    public int getLeftX() {
+        return leftX;
+    }
+
+    public int getLeftY() {
+        return leftY;
+    }
+
+    public int getRightX() {
+        return rightX;
+    }
+
+    public int getRightY() {
+        return rightY;
     }
 }
