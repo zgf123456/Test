@@ -1,5 +1,7 @@
 package com.zgf.Test.aligorthm.aStar;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -7,17 +9,33 @@ import java.util.Random;
  */
 public class TestAStar {
     public static void main(String[] args) {
-        AGame aGame = initAGame(10, 10, 20);
+        AGame aGame = initAGame(40, 20, 0.3f);
         aGame.printAMap();
-        aGame.startFindPath(aGame);
+
+        if (aGame.isGameInitResult()) {
+            List<APoint> aPoints = aGame.startFindPath(aGame);
+
+            if (aPoints != null) {
+                System.out.println("game success....");
+                aGame.printAMap(aPoints);
+            } else {
+                System.out.println("game fail....");
+                List<APointWrap> closePoints = aGame.getClosePoints();
+                List<APoint> findPath = new ArrayList<>();
+                for (APointWrap cp : closePoints) {
+                    findPath.add(cp.getaPoint());
+                }
+                aGame.printAMap(findPath);
+            }
+        }
     }
 
     /**
      * @param width
      * @param height
-     * @param blockSize
+     * @param blockSizePre
      */
-    private static AGame initAGame(int width, int height, int blockSize) {
+    private static AGame initAGame(int width, int height, float blockSizePre) {
         System.out.println("aGame init start....");
 
         AGame aGame = new AGame();
@@ -51,16 +69,33 @@ public class TestAStar {
         }
 
         // 设置障碍
-        int bCount = 0;
-        for (; bCount < blockSize; ) {
-            int wb = random.nextInt(width);
-            int hb = random.nextInt(height);
-            if (aPoints[wb][hb].getStatus() == 0) {
-                aPoints[wb][hb].setStatus(-1);
-                bCount++;
+        int gameInitCount = 0;
+        boolean gameInitResult = false;
+        for (; gameInitCount < 100; ) {
+            gameInitCount++;
+            int bCount = 0;
+            int blockSize = (int) (blockSizePre * (width * height));
+            for (; bCount < blockSize; ) {
+                int wb = random.nextInt(width);
+                int hb = random.nextInt(height);
+                if (aPoints[wb][hb].getStatus() == 0) {
+                    aPoints[wb][hb].setStatus(-2);
+                    bCount++;
+                }
             }
+
+            // 尝试寻找路径
+            // 清除障碍，重新生成
+            gameInitResult = true;
+            break;
         }
-        System.out.println("aGame init end....");
+
+        aGame.setGameInitResult(gameInitResult);
+        if (gameInitResult) {
+            System.out.println("aGame init sucess....,initCount=" + gameInitCount);
+        } else {
+            System.out.println("aGame init fail....,initCount=" + gameInitCount);
+        }
         return aGame;
     }
 }

@@ -8,7 +8,9 @@ import java.util.Objects;
 public class APoint implements Comparable {
     private int x;
     private int y;
-    private int status = 0; // 负数-不可通行，0-普通，1-起点，9-终点
+    // 负数-不可通行，-1边界，-2障碍
+    // 0-普通，1-起点，9-终点
+    private int status = 0;
 
     public APoint(int x, int y) {
         this.x = x;

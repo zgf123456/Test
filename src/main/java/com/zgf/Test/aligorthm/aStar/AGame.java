@@ -10,6 +10,7 @@ public class AGame {
     private AMap aMap;
     private APoint startPoint;
     private APoint endPoint;
+    private boolean gameInitResult;
 
     private List<APointWrap> openPoints = new ArrayList<>(); // 开启节点列表
     private List<APointWrap> closePoints = new ArrayList<>(); // 关闭节点列表
@@ -40,6 +41,14 @@ public class AGame {
 
     public void printAMap() {
         this.printAMap(null);
+    }
+
+    public boolean isGameInitResult() {
+        return gameInitResult;
+    }
+
+    public void setGameInitResult(boolean gameInitResult) {
+        this.gameInitResult = gameInitResult;
     }
 
     public void printAMap(List<APoint> paths) {
@@ -127,7 +136,7 @@ public class AGame {
     /**
      * 开始寻路
      */
-    public static void startFindPath(AGame aGame) {
+    public static List<APoint> startFindPath(AGame aGame) {
         APoint startPoint = aGame.getStartPoint();
         APointWrap aPointWrapStart = new APointWrap(startPoint, null);
         aPointWrapStart.setCostG(0);
@@ -136,8 +145,8 @@ public class AGame {
         aGame.openPoint(aPointWrapStart);
 
         // 开始寻路
-        APointWrap currentPoint = null;
         boolean result = false;
+        APointWrap resultPoint = null;
         while (true) {
             APointWrap minCost = null;
 
@@ -158,11 +167,6 @@ public class AGame {
 
             openPoints.remove(minCost);
             closePoints.add(minCost);
-            if (currentPoint == null) {
-                currentPoint = minCost;
-            } else {
-                minCost.setParentPoint(currentPoint);
-            }
 
             // 获取相邻节点，加入打开节点
             List<APoint> neibours = aGame.getNeibours(minCost);
@@ -170,6 +174,7 @@ public class AGame {
                 if (neibours.contains(aGame.getEndPoint())) {
                     System.out.println("find end point, success .......");
                     result = true;
+                    resultPoint = minCost;
                     break;
                 }
 
@@ -202,21 +207,15 @@ public class AGame {
 
         if (result) {
             List<APoint> shortPath = new ArrayList<>();
-            shortPath.add(currentPoint.getaPoint());
-            while (currentPoint.getParentPoint() != null) {
-                currentPoint = currentPoint.getParentPoint();
-                shortPath.add(currentPoint.getaPoint());
+            APointWrap target = resultPoint;
+            shortPath.add(target.getaPoint());
+            while (target.getParentPoint() != null) {
+                target = target.getParentPoint();
+                shortPath.add(target.getaPoint());
             }
-            System.out.println("game success....");
-            aGame.printAMap(shortPath);
+            return shortPath;
         } else {
-            System.out.println("game fail....");
-            List<APointWrap> closePoints = aGame.getClosePoints();
-            List<APoint> findPath = new ArrayList<>();
-            for (APointWrap cp : closePoints) {
-                findPath.add(cp.getaPoint());
-            }
-            aGame.printAMap(findPath);
+            return null;
         }
     }
 }
