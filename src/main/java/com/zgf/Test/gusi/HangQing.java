@@ -15,8 +15,11 @@ public class HangQing {
 
     public static void main(String[] args) {
         ArrayList<GuPiaoInfo> guPiaoInfos = new ArrayList<GuPiaoInfo>();
-        guPiaoInfos.add(new GuPiaoInfo("sh510300", "300ETF", "300"));
+        guPiaoInfos.add(new GuPiaoInfo("sh510300", "300ETF", "3"));
         guPiaoInfos.add(new GuPiaoInfo("sh600036", "招商", "zs"));
+        guPiaoInfos.add(new GuPiaoInfo("sz002007", "华兰", "hl"));
+        guPiaoInfos.add(new GuPiaoInfo("sz000338", "淮柴", "hc"));
+        guPiaoInfos.add(new GuPiaoInfo("sh600702", "舍得", "sd"));
 
         String url = "https://hq.sinajs.cn/list={ids}";
 
