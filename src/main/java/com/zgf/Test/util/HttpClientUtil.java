@@ -115,7 +115,7 @@ public class HttpClientUtil {
                 }
                 url += "?" + EntityUtils.toString(new UrlEncodedFormEntity(pairs, charset));
             }
-            logger.info("请求地址url:{}", url);
+            logger.debug("请求地址url:{}", url);
             HttpGet httpGet = new HttpGet(url);
             CloseableHttpClient closeableHttpClient = HttpClientUtil.newCloseableHttpSSLClient(TIMEOUT_30);
             response = closeableHttpClient.execute(httpGet);

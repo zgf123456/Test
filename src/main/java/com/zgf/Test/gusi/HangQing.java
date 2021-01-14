@@ -4,7 +4,9 @@ import com.zgf.Test.util.HttpClientUtil;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -21,7 +23,7 @@ public class HangQing {
             public void run() {
                 handlerHangQing(url, GuPiaoInfo.guPiaoInfos);
             }
-        }, 0, 60000);
+        }, 0, 30000);
     }
 
     private static void handlerHangQing(String url, ArrayList<GuPiaoInfo> guPiaoInfos) {
@@ -37,6 +39,8 @@ public class HangQing {
 //        System.out.println(respContent);
         String[] hqSplit = respContent.split(";");
 
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm:ss");
+        System.out.print(simpleDateFormat.format(new Date()) + " ");
         int index = 0;
         for (String hq : hqSplit) {
             if (hq.startsWith("var") || hq.startsWith("\nvar")) {
@@ -57,7 +61,9 @@ public class HangQing {
                 divide = divide.multiply(new BigDecimal(100));
                 divide = divide.setScale(2);
                 GuPiaoInfo guPiaoInfo = guPiaoInfos.get(index);
-                System.out.print("[" + guPiaoInfo.getShowName() + "," + upOrDown + divide + "],");
+                System.out.print("[" + guPiaoInfo.getShowName() + "," + upOrDown + divide //
+                        + (guPiaoInfo.isShowCurPrice() ? "," + curPrice : "") //
+                        + "],");
                 index++;
             }
         }

@@ -8,7 +8,8 @@ public class GuPiaoInfo {
 
     static {
         guPiaoInfos.add(new GuPiaoInfo("sh510300", "300ETF", "3"));
-        guPiaoInfos.add(new GuPiaoInfo("sh600036", "招商", "zs"));
+        guPiaoInfos.add(new GuPiaoInfo("sh600036", "招商", "zs", true));
+        guPiaoInfos.add(new GuPiaoInfo("sh601939", "建设", "js"));
         guPiaoInfos.add(new GuPiaoInfo("sz002007", "华兰", "hl"));
         guPiaoInfos.add(new GuPiaoInfo("sz000338", "淮柴", "hc"));
         guPiaoInfos.add(new GuPiaoInfo("sh600702", "舍得", "sd"));
@@ -17,11 +18,20 @@ public class GuPiaoInfo {
     private String id;
     private String name;
     private String showName;
+    private boolean showCurPrice;
 
     public GuPiaoInfo(String id, String name, String showName) {
         this.id = id;
         this.name = name;
         this.showName = showName;
+        this.showCurPrice = false;
+    }
+
+    public GuPiaoInfo(String id, String name, String showName, boolean showCurPrice) {
+        this.id = id;
+        this.name = name;
+        this.showName = showName;
+        this.showCurPrice = showCurPrice;
     }
 
     public String getId() {
@@ -46,5 +56,17 @@ public class GuPiaoInfo {
 
     public void setShowName(String showName) {
         this.showName = showName;
+    }
+
+    public static ArrayList<GuPiaoInfo> getGuPiaoInfos() {
+        return guPiaoInfos;
+    }
+
+    public boolean isShowCurPrice() {
+        return showCurPrice;
+    }
+
+    public void setShowCurPrice(boolean showCurPrice) {
+        this.showCurPrice = showCurPrice;
     }
 }
