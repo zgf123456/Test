@@ -8,12 +8,13 @@ public class GuPiaoInfo {
 
     static {
         guPiaoInfos.add(new GuPiaoInfo("sh510300", "300ETF", "3"));
-        guPiaoInfos.add(new GuPiaoInfo("sh600036", "招商", "ZS", true));
+        guPiaoInfos.add(new GuPiaoInfo("sh600036", "招商", "ZS", false));
+        guPiaoInfos.add(new GuPiaoInfo("sh601166", "兴业", "XY", false));
         guPiaoInfos.add(new GuPiaoInfo("sh601939", "建设", "JS"));
         guPiaoInfos.add(new GuPiaoInfo("sz002007", "华兰", "HL"));
         guPiaoInfos.add(new GuPiaoInfo("sz000338", "淮柴", "HC"));
         guPiaoInfos.add(new GuPiaoInfo("sh600702", "舍得", "SD"));
-        guPiaoInfos.add(new GuPiaoInfo("sh600030", "中信", "ZX"));
+//        guPiaoInfos.add(new GuPiaoInfo("sh600030", "中信", "ZX"));
     }
 
     private String id;

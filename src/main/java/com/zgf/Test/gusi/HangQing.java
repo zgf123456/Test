@@ -23,7 +23,7 @@ public class HangQing {
             public void run() {
                 handlerHangQing(url, GuPiaoInfo.guPiaoInfos);
             }
-        }, 0, 30000);
+        }, 0, 20000);
     }
 
     private static void handlerHangQing(String url, ArrayList<GuPiaoInfo> guPiaoInfos) {
