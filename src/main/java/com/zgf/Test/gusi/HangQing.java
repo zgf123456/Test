@@ -48,25 +48,91 @@ public class HangQing {
 //                System.out.println(Arrays.toString(infoSplit));
                 BigDecimal lastEndPrice = new BigDecimal(infoSplit[2]);
                 BigDecimal curPrice = new BigDecimal(infoSplit[3]);
+                BigDecimal upPrice = new BigDecimal(infoSplit[4]);
+                BigDecimal downPrice = new BigDecimal(infoSplit[5]);
 
-                String upOrDown = "+";
-                BigDecimal subPrice;
-                if (curPrice.compareTo(lastEndPrice) >= 0) {
-                    subPrice = curPrice.subtract(lastEndPrice);
-                } else {
-                    upOrDown = "-";
-                    subPrice = lastEndPrice.subtract(curPrice);
-                }
-                BigDecimal divide = subPrice.divide(lastEndPrice, 4, RoundingMode.HALF_UP);
-                divide = divide.multiply(new BigDecimal(100));
-                divide = divide.setScale(2);
                 GuPiaoInfo guPiaoInfo = guPiaoInfos.get(index);
-                System.out.print("[" + guPiaoInfo.getShowName() + "," + upOrDown + divide //
-                        + (guPiaoInfo.isShowCurPrice() ? "," + curPrice : "") //
-                        + "],");
+                System.out.print("[" + guPiaoInfo.getShowName());
+                if (guPiaoInfo.isShowCurPrice()) {
+                    System.out.print("," + curPrice);
+                }
+
+                // 计算当前价
+                calculateCurPrice(lastEndPrice, curPrice);
+
+                // 计算up价
+                calculateUpPrice(upPrice, curPrice);
+
+                // 计算down价
+//                calculateDownPrice(downPrice, curPrice);
+
+                System.out.print("],");
                 index++;
             }
         }
         System.out.println();
+    }
+
+    /**
+     * 当前价格
+     *
+     * @param lastEndPrice
+     * @param curPrice
+     */
+    private static void calculateCurPrice(BigDecimal lastEndPrice, BigDecimal curPrice) {
+        String upOrDown = "+";
+        BigDecimal subPrice;
+        if (curPrice.compareTo(lastEndPrice) >= 0) {
+            subPrice = curPrice.subtract(lastEndPrice);
+        } else {
+            upOrDown = "-";
+            subPrice = lastEndPrice.subtract(curPrice);
+        }
+        BigDecimal divide = subPrice.divide(lastEndPrice, 4, RoundingMode.HALF_UP);
+        divide = divide.multiply(new BigDecimal(100));
+        divide = divide.setScale(2);
+        System.out.print("," + upOrDown + divide);
+    }
+
+    /**
+     * up价
+     *
+     * @param upPrice
+     * @param curPrice
+     */
+    private static void calculateUpPrice(BigDecimal upPrice, BigDecimal curPrice) {
+        String upOrDown = "+";
+        BigDecimal subPrice;
+        if (curPrice.compareTo(upPrice) >= 0) {
+            subPrice = curPrice.subtract(upPrice);
+        } else {
+            upOrDown = "-";
+            subPrice = upPrice.subtract(curPrice);
+        }
+        BigDecimal divide = subPrice.divide(upPrice, 4, RoundingMode.HALF_UP);
+        divide = divide.multiply(new BigDecimal(100));
+        divide = divide.setScale(2);
+        System.out.print(",u" + upOrDown + divide);
+    }
+
+    /**
+     * down价
+     *
+     * @param downPrice
+     * @param curPrice
+     */
+    private static void calculateDownPrice(BigDecimal downPrice, BigDecimal curPrice) {
+        String upOrDown = "+";
+        BigDecimal subPrice;
+        if (curPrice.compareTo(downPrice) >= 0) {
+            subPrice = curPrice.subtract(downPrice);
+        } else {
+            upOrDown = "-";
+            subPrice = downPrice.subtract(curPrice);
+        }
+        BigDecimal divide = subPrice.divide(downPrice, 4, RoundingMode.HALF_UP);
+        divide = divide.multiply(new BigDecimal(100));
+        divide = divide.setScale(2);
+        System.out.print(",d" + upOrDown + divide);
     }
 }
