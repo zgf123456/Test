@@ -61,7 +61,9 @@ public class HangQing {
                 calculateCurPrice(lastEndPrice, curPrice);
 
                 // 计算up价
-                calculateUpPrice(upPrice, curPrice);
+                if(!"3".equals(guPiaoInfo.getShowName())) {
+                    calculateUpPrice(upPrice, curPrice);
+                }
 
                 // 计算down价
 //                calculateDownPrice(downPrice, curPrice);
