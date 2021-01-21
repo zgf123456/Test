@@ -3,12 +3,12 @@ package com.zgf.Test.aligorthm.dp;
 /**
  * 斐波那契 - 动态规划解法
  */
-public class Fib {
+public class DpFib {
     public static void main(String[] args) {
-        Fib fib = new Fib();
+        DpFib dpFib = new DpFib();
         for (int i = 0; i < 100; i++) {
-            System.out.println("fib(" + i + ")=" + fib.fib(i));
-            System.out.println("fib2(" + i + ")=" + fib.fib2(i));
+            System.out.println("fib(" + i + ")=" + dpFib.fib(i));
+            System.out.println("fib2(" + i + ")=" + dpFib.fib2(i));
         }
     }
 
