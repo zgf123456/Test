@@ -1,4 +1,29 @@
-2021-01-22 10:21:24.867 [Timer-0] ERROR com.zgf.Test.util.HttpClientUtil.httpRequest[HttpClientUtil:129] - hq.sinajs.cn: unknown error
+2021-01-23 18:30:49.012 [Timer-0] ERROR com.zgf.Test.util.HttpClientUtil.httpRequest[HttpClientUtil:129] - hq.sinajs.cn: unknown error
+java.net.UnknownHostException: hq.sinajs.cn: unknown error
+	at java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
+	at java.net.InetAddress$2.lookupAllHostAddr(InetAddress.java:928)
+	at java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1323)
+	at java.net.InetAddress.getAllByName0(InetAddress.java:1276)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1192)
+	at java.net.InetAddress.getAllByName(InetAddress.java:1126)
+	at org.apache.http.impl.conn.SystemDefaultDnsResolver.resolve(SystemDefaultDnsResolver.java:45)
+	at org.apache.http.impl.conn.DefaultHttpClientConnectionOperator.connect(DefaultHttpClientConnectionOperator.java:112)
+	at org.apache.http.impl.conn.PoolingHttpClientConnectionManager.connect(PoolingHttpClientConnectionManager.java:359)
+	at org.apache.http.impl.execchain.MainClientExec.establishRoute(MainClientExec.java:381)
+	at org.apache.http.impl.execchain.MainClientExec.execute(MainClientExec.java:237)
+	at org.apache.http.impl.execchain.ProtocolExec.execute(ProtocolExec.java:185)
+	at org.apache.http.impl.execchain.RetryExec.execute(RetryExec.java:89)
+	at org.apache.http.impl.execchain.RedirectExec.execute(RedirectExec.java:111)
+	at org.apache.http.impl.client.InternalHttpClient.doExecute(InternalHttpClient.java:185)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:83)
+	at org.apache.http.impl.client.CloseableHttpClient.execute(CloseableHttpClient.java:108)
+	at com.zgf.Test.util.HttpClientUtil.httpRequest(HttpClientUtil.java:121)
+	at com.zgf.Test.gusi.HangQing.handlerHangQing(HangQing.java:38)
+	at com.zgf.Test.gusi.HangQing.access$000(HangQing.java:16)
+	at com.zgf.Test.gusi.HangQing$1.run(HangQing.java:24)
+	at java.util.TimerThread.mainLoop(Timer.java:555)
+	at java.util.TimerThread.run(Timer.java:505)
+2021-01-23 18:31:02.444 [Timer-0] ERROR com.zgf.Test.util.HttpClientUtil.httpRequest[HttpClientUtil:129] - hq.sinajs.cn: unknown error
 java.net.UnknownHostException: hq.sinajs.cn: unknown error
 	at java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method)
 	at java.net.InetAddress$2.lookupAllHostAddr(InetAddress.java:928)
