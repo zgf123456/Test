@@ -16,6 +16,8 @@ public class Rob1 {
 
     public int rob(int[] nums) {
         if (nums == null || nums.length == 0) return 0;
+        if (nums.length == 1) return nums[0];
+
         // 备忘录 - 解决重复计算
         int[] dbTable = new int[nums.length];
         for (int i = 0; i < dbTable.length; i++) {
