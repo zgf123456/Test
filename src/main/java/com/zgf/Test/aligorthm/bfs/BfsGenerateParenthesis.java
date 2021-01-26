@@ -38,11 +38,18 @@ public class BfsGenerateParenthesis {
         for (char c : Arrays.asList('(', ')')) {
             if (isValid(leftUse, rightUse, n, c)) {
                 stringBuilder.append(c);
+                boolean rs;
                 if (c == '(') {
-                    doGenerateP(stringBuilder, result, leftUse + 1, rightUse, n);
+                    rs = doGenerateP(stringBuilder, result, leftUse + 1, rightUse, n);
                 } else {
-                    doGenerateP(stringBuilder, result, leftUse, rightUse + 1, n);
+                    rs = doGenerateP(stringBuilder, result, leftUse, rightUse + 1, n);
                 }
+
+//                // 只需要一种解法时
+//                if (result.size() > 0) {
+//                    break;
+//                }
+
                 // 回溯
                 stringBuilder.deleteCharAt(stringBuilder.length() - 1);
             }
