@@ -15,7 +15,7 @@ public class DpBurstBalloon {
     }
 
     public int maxCoins(int[] nums) {
-        // 扩展数组，将前后都置为1
+        // 扩展数组，将前后都置为1，将整个数组看成一个开区间
         int[] numPlus = new int[nums.length + 2];
         numPlus[0] = numPlus[numPlus.length - 1] = 1;
         for (int i = 1; i < (numPlus.length - 1); i++) {
@@ -24,6 +24,7 @@ public class DpBurstBalloon {
 
         // 正向思路，戳破气球后，气球的位置一直在变化，没法计算
         // 逆向思路，从i~j开区间中，选择第k个最后戳破，则此时获取的硬币数为 num[i]*num[j]*num[k]
+        // 这个思路就是选择第k个气球，放入开区间，然后开区间就分割成两个开区间 i~k 和 k~j
         int[][] dpTable = new int[numPlus.length][numPlus.length];
         for (int i = 0; i < dpTable.length; i++) {
             for (int j = 0; j < dpTable[i].length; j++) {
