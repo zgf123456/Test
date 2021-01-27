@@ -13,9 +13,7 @@ public class GuPiaoInfo {
         guPiaoInfos.add(new GuPiaoInfo("sz002007", "华兰", "HL"));
         guPiaoInfos.add(new GuPiaoInfo("sz000338", "淮柴", "HC"));
         guPiaoInfos.add(new GuPiaoInfo("sh600702", "舍得", "SD"));
-        guPiaoInfos.add(new GuPiaoInfo("sz000333", "美的", "MD"));
         guPiaoInfos.add(new GuPiaoInfo("sh600887", "伊利", "YL"));
-//        guPiaoInfos.add(new GuPiaoInfo("sh600030", "中信", "ZX"));
     }
 
     private String id;
