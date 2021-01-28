@@ -8,20 +8,36 @@ package com.zgf.Test.aligorthm.leetcode;
 public class FirstMissingPositive {
     public static void main(String[] args) {
         FirstMissingPositive firstMissingPositive = new FirstMissingPositive();
+        System.out.println(firstMissingPositive.firstMissingPositive(new int[]{1}));
         System.out.println(firstMissingPositive.firstMissingPositive(new int[]{1, 2, 0}));
     }
 
+    /**
+     * 记录法解决 - 额外空间
+     *
+     * @param nums
+     * @return
+     */
     public int firstMissingPositive(int[] nums) {
         if (nums.length == 0) return 1;
-        int min = nums[0];
+
+        // 思路 nums.length = N
+        // N个数表示 1 ~ N 的区间，最刚好的情况是nums里面全是1~N的数据，且不重复
+        int[] ary = new int[nums.length + 1];
 
         for (int i = 0; i < nums.length; i++) {
-            if (nums[i] > 0) {
-                if (nums[i] < min) {
-                    min = nums[i];
-                }
+            if (nums[i] < 1 || nums[i] > nums.length) {
+                // 非法数字
+                continue;
+            }
+            ary[nums[i]] += nums[i];
+        }
+
+        for (int i = 1; i < ary.length; i++) {
+            if (ary[i] == 0) {
+                return i;
             }
         }
-        return 1;
+        return ary.length;
     }
 }
