@@ -9,6 +9,7 @@ public class GuPiaoInfo {
     static {
         guPiaoInfos.add(new GuPiaoInfo("sh510300", "300ETF", "3"));
         guPiaoInfos.add(new GuPiaoInfo("sh512290", "医药ETF", "YYE"));
+        guPiaoInfos.add(new GuPiaoInfo("sh512000", "券商ETF", "ZQE"));
 //        guPiaoInfos.add(new GuPiaoInfo("sh512170", "医疗ETF", "YLE"));
         guPiaoInfos.add(new GuPiaoInfo("sh600036", "招商", "ZS"));
         guPiaoInfos.add(new GuPiaoInfo("sh601939", "建设", "JS"));
