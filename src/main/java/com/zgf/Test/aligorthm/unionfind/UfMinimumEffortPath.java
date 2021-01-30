@@ -109,6 +109,8 @@ public class UfMinimumEffortPath {
                 // 不连通，将当前边合并集合，这时不代表连通，需要进行多次合并，才能使用开始节点和目标节点连通
                 unionFind.union(edge.a, edge.b);
                 max = Math.max(max, edge.d); // 更新最大值
+            } else {
+                break;
             }
         }
         return max;
