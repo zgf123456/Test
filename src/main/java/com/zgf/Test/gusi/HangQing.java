@@ -63,7 +63,7 @@ public class HangQing {
                 // 计算up价
                 if(!"3".equals(guPiaoInfo.getShowName())
                         && !"YYE".equals(guPiaoInfo.getShowName())
-                        && !"YLE".equals(guPiaoInfo.getShowName())){
+                        && !"ZQE".equals(guPiaoInfo.getShowName())){
                     calculateUpPrice(upPrice, curPrice);
                 }
 
