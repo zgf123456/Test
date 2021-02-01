@@ -1,4 +1,4 @@
-package com.zgf.Test.aligorthm.leetcode;
+package com.zgf.Test.aligorthm.twopoint;
 
 /**
  * https://leetcode-cn.com/problems/reverse-nodes-in-k-group/
