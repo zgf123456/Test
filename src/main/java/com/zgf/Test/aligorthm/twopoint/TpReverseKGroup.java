@@ -9,7 +9,7 @@ package com.zgf.Test.aligorthm.twopoint;
  * <p>
  * 如果节点总数不是 k 的整数倍，那么请将最后剩余的节点保持原有顺序
  */
-public class ReverseKGroup {
+public class TpReverseKGroup {
     public static void main(String[] args) {
         ListNode listNode1 = new ListNode(1);
         ListNode listNode2 = new ListNode(2);
@@ -20,8 +20,8 @@ public class ReverseKGroup {
         listNode3.next = listNode4;
         ListNode listNode5 = new ListNode(5);
         listNode4.next = listNode5;
-        ReverseKGroup reverseKGroup = new ReverseKGroup();
-        ListNode listNode = reverseKGroup.reverseKGroup(listNode1, 2);
+        TpReverseKGroup tpReverseKGroup = new TpReverseKGroup();
+        ListNode listNode = tpReverseKGroup.reverseKGroup(listNode1, 2);
 
         while (listNode != null) {
             System.out.println(listNode.val);
