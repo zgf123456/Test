@@ -61,9 +61,7 @@ public class HangQing {
                 calculateCurPrice(lastEndPrice, curPrice);
 
                 // 计算up价
-                if(!"3".equals(guPiaoInfo.getShowName())
-                        && !"YYE".equals(guPiaoInfo.getShowName())
-                        && !"ZQE".equals(guPiaoInfo.getShowName())){
+                if(!guPiaoInfo.getName().endsWith("ETF")){
                     calculateUpPrice(upPrice, curPrice);
                 }
 

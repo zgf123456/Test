@@ -1,8 +1,6 @@
 package com.zgf.Test.aligorthm.slidewin;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * https://leetcode-cn.com/problems/substring-with-concatenation-of-all-words/
@@ -13,10 +11,19 @@ import java.util.List;
 public class SwFindSubstring {
     public static void main(String[] args) {
         SwFindSubstring swFindSubstring = new SwFindSubstring();
+        System.out.println(swFindSubstring.findSubstring("barfoofoobarthefoobarman", new String[]{"bar", "foo", "the"}));
         System.out.println(swFindSubstring.findSubstring("goodgoodbestword", new String[]{"word", "good", "best", "good"}));
         System.out.println(swFindSubstring.findSubstring("barfoothefoobarman", new String[]{"foo", "bar"}));
     }
 
+    /**
+     * 滑动窗口 - 重复计算太多需优化
+     * 超时了，逻辑没有啥问题
+     *
+     * @param s
+     * @param words
+     * @return
+     */
     public List<Integer> findSubstring(String s, String[] words) {
         // 计算窗口大小
         int len = 0;
@@ -47,7 +54,7 @@ public class SwFindSubstring {
 
                 if (wordMatch) {
                     j += wordLen;
-                    if(exists.size() == words.length) {
+                    if (exists.size() == words.length) {
                         result.add(i);
                         break;
                     }
