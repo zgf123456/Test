@@ -27,7 +27,7 @@ public class DpLongestCommonSubsequence {
                 if (text1.charAt(i) == text2.charAt(j)) {
                     dp[i + 1][j + 1] = dp[i][j] + 1;
                 } else {
-                    // 将0用非0填充
+                    // 将0用非0填充，设置为已经匹配最长的值
                     dp[i + 1][j + 1] = Math.max(dp[i][j + 1], dp[i + 1][j]);
                 }
             }
