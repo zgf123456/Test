@@ -62,6 +62,7 @@ public class ZhengZe1 {
 
     /**
      * 动态规划，自底向上填表法
+     * 从左上角，按斜线的方式，向右下角走
      *
      * @param s
      * @param p
@@ -111,6 +112,13 @@ public class ZhengZe1 {
                     dp[i][j] = dp[i - 1][j] | dp[i][j - 1];
                 }
             }
+        }
+
+        for(int i=0; i<dp.length; i++) {
+            for(int j=0; j<dp[i].length; j++) {
+                System.out.print(dp[i][j] ? 0 : 1);
+            }
+            System.out.println();
         }
         return dp[len1][len2];
     }
