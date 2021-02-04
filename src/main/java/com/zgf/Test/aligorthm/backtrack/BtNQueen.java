@@ -7,6 +7,7 @@ import java.util.List;
 
 /**
  * 回溯法 - N皇后问题 - 92种解法
+ * https://leetcode-cn.com/problems/n-queens/submissions/
  */
 public class BtNQueen {
     public static void main(String[] args) {
