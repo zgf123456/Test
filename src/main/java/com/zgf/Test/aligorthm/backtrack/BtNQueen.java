@@ -6,18 +6,58 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 回溯法 - 八皇后问题 - 92种解法
+ * 回溯法 - N皇后问题 - 92种解法
  */
-public class BtEightQueen {
+public class BtNQueen {
     public static void main(String[] args) {
-        BtEightQueen btEightQueen = new BtEightQueen();
-        int[][] map = new int[8][8];
+        BtNQueen btNQueen = new BtNQueen();
+
+        System.out.println(JSON.toJSONString(btNQueen.solveNQueens(8)));
+
+//        ArrayList<List<int[]>> lists = btNQueen.solveNQueens1(1);
+//        System.out.println(lists.size());
+//        System.out.println(JSON.toJSONString(lists));
+//        lists = btNQueen.solveNQueens1(5);
+//        System.out.println(lists.size());
+//        System.out.println(JSON.toJSONString(lists));
+//        lists = btNQueen.solveNQueens1(8);
+//        System.out.println(lists.size());
+//        System.out.println(JSON.toJSONString(lists));
+    }
+
+    /**
+     * 适配leetcode的返回
+     *
+     * @param n
+     * @return
+     */
+    public List<List<String>> solveNQueens(int n) {
+        ArrayList<List<int[]>> lists = this.solveNQueens1(n);
+        List<List<String>> rsList = new ArrayList<>();
+        for (List<int[]> list : lists) {
+            List<String> rs = new ArrayList<>();
+            for (int[] line : list) {
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < n; i++) {
+                    if (i == line[1]) {
+                        sb.append("Q");
+                    } else {
+                        sb.append(".");
+                    }
+                }
+                rs.add(sb.toString());
+            }
+            rsList.add(rs);
+        }
+        return rsList;
+    }
+
+    public ArrayList<List<int[]>> solveNQueens1(int n) {
+        int[][] map = new int[n][n];
         ArrayList<List<int[]>> result = new ArrayList<List<int[]>>();
         List<int[]> path = new ArrayList<>();
-        btEightQueen.find(map, 1, path, result);
-
-        System.out.println(result.size());
-        System.out.println(JSON.toJSONString(result));
+        this.find(map, 1, path, result);
+        return result;
     }
 
     /**
