@@ -17,11 +17,11 @@ import java.util.*;
 public class SwBusiestServers {
     public static void main(String[] args) {
         SwBusiestServers swBusiestServers = new SwBusiestServers();
-        System.out.println(swBusiestServers.busiestServers(6, new int[]{1, 2, 3, 9, 11, 12, 14}, new int[]{12, 3, 8, 13, 6, 10, 14}));
+//        System.out.println(swBusiestServers.busiestServers(6, new int[]{1, 2, 3, 9, 11, 12, 14}, new int[]{12, 3, 8, 13, 6, 10, 14}));
 //        System.out.println(swBusiestServers.busiestServers(3, new int[]{1, 2, 3, 4, 8, 9, 10}, new int[]{5, 2, 10, 3, 1, 2, 2}));
 //        System.out.println(swBusiestServers.busiestServers(3, new int[]{2, 6, 7, 8}, new int[]{1, 3, 1, 4}));
 //        System.out.println(swBusiestServers.busiestServers(3, new int[]{2, 3, 4, 5, 6, 9, 14, 15, 22, 23, 24, 25, 26, 27, 29, 30}, new int[]{2, 10, 11, 13, 8, 6, 15, 15, 7, 1, 16, 8, 9, 9, 6, 5}));
-//        System.out.println(swBusiestServers.busiestServers(3, new int[]{1, 2, 3, 4}, new int[]{5, 2, 3, 3, 3}));
+        System.out.println(swBusiestServers.busiestServers(3, new int[]{1, 2, 3, 4, 5}, new int[]{5, 2, 3, 3, 3}));
 //        System.out.println(swBusiestServers.busiestServers(3, new int[]{1, 2, 3, 4}, new int[]{1, 2, 1, 2}));
     }
 
@@ -29,8 +29,7 @@ public class SwBusiestServers {
         int[] taskNum = new int[k];
         int maxTaskNum = 0;
 
-        // 使用优先级队列优化服务器选择速度
-        // 0表示空闲时间点，1表示服务器ID
+        // 维护工作队列，以时间排序
         PriorityQueue<int[]> priorityQueue = new PriorityQueue<>(new Comparator<int[]>() {
             @Override
             public int compare(int[] o1, int[] o2) {
@@ -42,65 +41,38 @@ public class SwBusiestServers {
             }
         });
 
-        // 服务器入队列
+        // 维持空闲队列
+        TreeSet<Integer> freeServerSet = new TreeSet<>();
+        // 服务器入空闲队列
         for (int i = 0; i < k; i++) {
-            priorityQueue.add(new int[]{0, i});
+            freeServerSet.add(i);
         }
 
         for (int i = 0; i < arrival.length; i++) {
-            // 判断第一个服务器时间
+            // 第i个请求到达，将工作队列中已完成的服务器，放入空闲队列
             int[] peek = priorityQueue.peek();
-            if (peek[0] > arrival[i]) {
-                // 无空闲服务器，放弃任务
-                continue;
+            while (peek != null && peek[0] <= arrival[i]) {
+                priorityQueue.poll();
+                freeServerSet.add(peek[1]);
+                peek = priorityQueue.peek();
+            }
+
+            // 从空闲队列中选择服务器
+            int target = i % k;
+            Integer ceiling = freeServerSet.ceiling(target);
+            if (ceiling == null) {
+                ceiling = freeServerSet.ceiling(0);
+            }
+
+            if (ceiling != null) {
+                taskNum[ceiling] += 1;
+                maxTaskNum = Math.max(maxTaskNum, taskNum[ceiling]);
+                // 移出空闲队列
+                freeServerSet.remove(ceiling);
+                // 放入工作队列
+                priorityQueue.add(new int[]{arrival[i] + load[i], ceiling});
             } else {
-                int targetId = i % k;
-                int minServerId = Integer.MAX_VALUE;
-                int largeMinServerId = Integer.MAX_VALUE;
-                int[] targetMin = null;
-                int[] targetLargerMin = null;
-
-                // 遍历服务器 - 选取大于等于targetId的空闲服务器
-                ArrayList<int[]> servers = new ArrayList<>();
-                while (true) {
-                    int[] poll = priorityQueue.poll();
-                    if (poll == null) {
-                        break;
-                    }
-                    servers.add(poll);
-                    if (poll[0] <= arrival[i]) {
-                        if (poll[1] == targetId) {
-                            largeMinServerId = poll[1];
-                            targetLargerMin = poll;
-                            break;
-                        } else if (poll[1] > targetId) {
-                            if (poll[1] < largeMinServerId) {
-                                largeMinServerId = poll[1];
-                                targetLargerMin = poll;
-                            }
-                        } else {
-                            if (poll[1] < minServerId) {
-                                minServerId = poll[1];
-                                targetMin = poll;
-                            }
-                        }
-                    } else {
-                        break;
-                    }
-                }
-
-                if (largeMinServerId != Integer.MAX_VALUE) {
-                    int id = targetLargerMin[1];
-                    taskNum[id] += 1;
-                    maxTaskNum = Math.max(maxTaskNum, taskNum[id]);
-                    targetLargerMin[0] = arrival[i] + load[i];
-                } else {
-                    int id = targetMin[1];
-                    taskNum[id] += 1;
-                    maxTaskNum = Math.max(maxTaskNum, taskNum[id]);
-                    targetMin[0] = arrival[i] + load[i];
-                }
-                priorityQueue.addAll(servers);
+                // 放弃
             }
         }
 
