@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * 回溯算法 - 全排列
+ * 回溯算法 - 全排列 - 字符串
  */
 public class BtPermute {
     public static void main(String[] args) {
