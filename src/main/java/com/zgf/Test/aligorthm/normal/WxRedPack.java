@@ -3,7 +3,7 @@ package com.zgf.Test.aligorthm.normal;
 import java.util.Random;
 
 /**
- * 微信红包
+ * 微信红包，随机策略
  */
 public class WxRedPack {
     public static void main(String[] args) {
