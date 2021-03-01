@@ -16,6 +16,7 @@ public class SelectSort {
 
     /**
      * @param arr
+     * 每次选出最小值与前面的值交换
      */
     private void sort(int[] arr) {
         for (int i = 0; i < arr.length; i++) {
