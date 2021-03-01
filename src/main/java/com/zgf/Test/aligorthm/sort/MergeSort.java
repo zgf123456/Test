@@ -16,36 +16,63 @@ public class MergeSort {
         sort(arr, 0, arr.length - 1, temp);
     }
 
-    private static void sort(int[] arr, int left, int right, int[] temp) {
-        if (left < right) {
-            int mid = (left + right) / 2;
-            sort(arr, left, mid, temp);//左边归并排序，使得左子序列有序
-            sort(arr, mid + 1, right, temp);//右边归并排序，使得右子序列有序
-            merge(arr, left, mid, right, temp);//将两个有序子数组合并操作
+    /**
+     * 归并排序
+     *
+     * @param arr
+     * @param start
+     * @param end
+     * @param temp
+     */
+    private static void sort(int[] arr, int start, int end, int[] temp) {
+        if (start < end) {
+            int mid = start + (end - start) / 2;
+            sort(arr, start, mid, temp);
+            sort(arr, mid + 1, end, temp);
+            // 合并
+            merge(arr, start, mid, end, temp);
         }
     }
 
-    private static void merge(int[] arr, int left, int mid, int right, int[] temp) {
-        int i = left;//左序列指针
-        int j = mid + 1;//右序列指针
-        int t = 0;//临时数组指针
-        while (i <= mid && j <= right) {
-            if (arr[i] <= arr[j]) {
-                temp[t++] = arr[i++];
+    /**
+     * 合并两个区间排序
+     *
+     * @param arr
+     * @param start
+     * @param mid
+     * @param end
+     * @param temp
+     */
+    private static void merge(int[] arr, int start, int mid, int end, int[] temp) {
+        int leftIdx = start;
+        int rightIdx = mid + 1;
+        int tempIdx = 0;
+        while (leftIdx <= mid && rightIdx <= end) {
+            if (arr[leftIdx] <= arr[rightIdx]) {
+                temp[tempIdx] = arr[leftIdx];
+                leftIdx++;
+                tempIdx++;
             } else {
-                temp[t++] = arr[j++];
+                temp[tempIdx] = arr[rightIdx];
+                rightIdx++;
+                tempIdx++;
             }
         }
-        while (i <= mid) {//将左边剩余元素填充进temp中
-            temp[t++] = arr[i++];
+
+        while (leftIdx <= mid) {
+            temp[tempIdx] = arr[leftIdx];
+            leftIdx++;
+            tempIdx++;
         }
-        while (j <= right) {//将右序列剩余元素填充进temp中
-            temp[t++] = arr[j++];
+        while (rightIdx <= end) {
+            temp[tempIdx] = arr[rightIdx];
+            rightIdx++;
+            tempIdx++;
         }
-        t = 0;
-        //将temp中的元素全部拷贝到原数组中
-        while (left <= right) {
-            arr[left++] = temp[t++];
+
+        // 将数据拷贝回原数组
+        for (int i = start; i <= end; i++) {
+            arr[i] = temp[i - start];
         }
     }
 }
