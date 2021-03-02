@@ -11,68 +11,66 @@ public class MergeSort {
         System.out.println(Arrays.toString(ary));
     }
 
-    public static void sort(int[] arr) {
-        int[] temp = new int[arr.length];//在排序前，先建好一个长度等于原数组长度的临时数组，避免递归中频繁开辟空间
-        sort(arr, 0, arr.length - 1, temp);
-    }
-
     /**
-     * 归并排序
+     * 思路，利用临时数组
      *
-     * @param arr
-     * @param start
-     * @param end
-     * @param temp
+     * @param ary
      */
-    private static void sort(int[] arr, int start, int end, int[] temp) {
-        if (start < end) {
-            int mid = start + (end - start) / 2;
-            sort(arr, start, mid, temp);
-            sort(arr, mid + 1, end, temp);
-            // 合并
-            merge(arr, start, mid, end, temp);
+    private void sort(int[] ary) {
+        int[] temp = new int[ary.length];
+        doMergeSort(ary, 0, ary.length - 1, temp);
+    }
+
+    private void doMergeSort(int[] ary, int start, int end, int[] temp) {
+        if (end <= start) {
+            return;
         }
+        // 分割
+        int mid = start + (end - start) / 2;
+        doMergeSort(ary, start, mid, temp);
+        doMergeSort(ary, mid + 1, end, temp);
+        merge(ary, start, mid, end, temp);
     }
 
     /**
-     * 合并两个区间排序
+     * 合并
      *
-     * @param arr
+     * @param ary
      * @param start
      * @param mid
      * @param end
      * @param temp
      */
-    private static void merge(int[] arr, int start, int mid, int end, int[] temp) {
+    private void merge(int[] ary, int start, int mid, int end, int[] temp) {
+        int tempIdx = 0;
         int leftIdx = start;
         int rightIdx = mid + 1;
-        int tempIdx = 0;
         while (leftIdx <= mid && rightIdx <= end) {
-            if (arr[leftIdx] <= arr[rightIdx]) {
-                temp[tempIdx] = arr[leftIdx];
+            if (ary[leftIdx] < ary[rightIdx]) {
+                temp[tempIdx] = ary[leftIdx];
                 leftIdx++;
-                tempIdx++;
             } else {
-                temp[tempIdx] = arr[rightIdx];
+                temp[tempIdx] = ary[rightIdx];
                 rightIdx++;
-                tempIdx++;
             }
+            tempIdx++;
         }
 
         while (leftIdx <= mid) {
-            temp[tempIdx] = arr[leftIdx];
+            temp[tempIdx] = ary[leftIdx];
             leftIdx++;
             tempIdx++;
         }
+
         while (rightIdx <= end) {
-            temp[tempIdx] = arr[rightIdx];
+            temp[tempIdx] = ary[rightIdx];
             rightIdx++;
             tempIdx++;
         }
 
-        // 将数据拷贝回原数组
+        // 复制回原数组
         for (int i = start; i <= end; i++) {
-            arr[i] = temp[i - start];
+            ary[i] = temp[i - start];
         }
     }
 }

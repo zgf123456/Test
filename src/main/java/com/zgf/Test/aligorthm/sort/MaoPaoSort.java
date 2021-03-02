@@ -18,22 +18,19 @@ public class MaoPaoSort {
      * @param ary
      */
     private void sort(int[] ary) {
-        //冒泡
         for (int i = 0; i < ary.length; i++) {
-            //外层循环，遍历次数
+            // 用于判断提前结束
             boolean swap = false;
+            // 每一个循环，沉底一个最大数
             for (int j = 0; j < ary.length - i - 1; j++) {
-                // 大数沉底
-                //内层循环，升序（如果前一个值比后一个值大，则交换）
-                //内层循环一次，获取一个最大值
                 if (ary[j] > ary[j + 1]) {
-                    int temp = ary[j + 1];
-                    ary[j + 1] = ary[j];
-                    ary[j] = temp;
+                    // 下沉
+                    int temp = ary[j];
+                    ary[j] = ary[j + 1];
+                    ary[j + 1] = temp;
                     swap = true;
                 }
             }
-
             if (!swap) {
                 break;
             }

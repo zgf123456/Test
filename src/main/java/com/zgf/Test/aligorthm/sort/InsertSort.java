@@ -22,9 +22,8 @@ public class InsertSort {
      * @param arr
      */
     private void sort(int[] arr) {
-        //插入排序
         for (int i = 1; i < arr.length; i++) {
-            for (int j = i; j > 0; j--) {
+            for (int j = i; j >= 1; j--) {
                 if (arr[j] < arr[j - 1]) {
                     int temp = arr[j];
                     arr[j] = arr[j - 1];
@@ -39,25 +38,24 @@ public class InsertSort {
     /**
      * 希尔排序，插入排序的变种
      * 添加步长的概念，逐渐递减步长，最后一次为1
+     *
      * @param arr
      */
     private void sehllSort(int[] arr) {
         //希尔排序（插入排序变种版）
-        for (int i = arr.length / 2; i > 0; i /= 2) {
-            //i层循环控制步长
+        // 步长
+        for (int i = arr.length / 2; i > 0; i = i / 2) {
             for (int j = i; j < arr.length; j++) {
-                //j控制无序端的起始位置
-                for (int k = j; k > 0 && k - i >= 0; k -= i) {
+                for (int k = j; k >= i; k -= i) {
                     if (arr[k] < arr[k - i]) {
-                        int temp = arr[k - i];
-                        arr[k - i] = arr[k];
-                        arr[k] = temp;
+                        int temp = arr[k];
+                        arr[k] = arr[k - i];
+                        arr[k - i] = temp;
                     } else {
                         break;
                     }
                 }
             }
-            //j,k为插入排序，不过步长为i
         }
     }
 }

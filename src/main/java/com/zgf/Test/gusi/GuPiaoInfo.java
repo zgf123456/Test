@@ -14,7 +14,7 @@ public class GuPiaoInfo {
         guPiaoInfos.add(new GuPiaoInfo("sh600036", "招商", "ZS"));
         guPiaoInfos.add(new GuPiaoInfo("sh601939", "建设", "JS"));
         guPiaoInfos.add(new GuPiaoInfo("sz000338", "淮柴", "HC"));
-//        guPiaoInfos.add(new GuPiaoInfo("sh600702", "舍得", "SD"));
+        guPiaoInfos.add(new GuPiaoInfo("sh600702", "舍得", "SD"));
     }
 
     private String id;

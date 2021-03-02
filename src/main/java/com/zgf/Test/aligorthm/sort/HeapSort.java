@@ -11,43 +11,44 @@ public class HeapSort {
         System.out.println(Arrays.toString(ary));
     }
 
-    public static void sort(int[] arr) {
-        // 1.构建大顶堆
-        for (int i = arr.length / 2 - 1; i >= 0; i--) {
-            //从第一个非叶子结点从下至上，从右至左调整结构
-            adjustHeap(arr, i, arr.length);
+    /**
+     * 从某个节点，递归往下调整
+     *
+     * @param ary
+     */
+    private void sort(int[] ary) {
+        // 从最后一个非叶子节点开始，构建大顶堆
+        for (int i = ary.length / 2; i >= 0; i--) {
+            doHeadSort(ary, i, ary.length);
         }
 
-        // 2. 大顶堆，堆顶为最大元素，循环将堆顶元素和队尾元素交换，重新构建堆，即可得到排序
-        for (int i = arr.length - 1; i >= 0; i--) {
-            int temp = arr[i];
-            arr[i] = arr[0];
-            arr[0] = temp;
-            adjustHeap(arr, 0, i - 1);
+        // 循环将队首元素，与队尾元素交换
+        int temp;
+        for (int i = ary.length - 1; i >= 0; i--) {
+            temp = ary[i];
+            ary[i] = ary[0];
+            ary[0] = temp;
+            doHeadSort(ary, 0, i - 1);
         }
     }
 
-    /**
-     * 从第一个节点开始调整
-     *
-     * @param arr
-     * @param i
-     * @param length
-     */
-    private static void adjustHeap(int[] arr, int i, int length) {
+    private void doHeadSort(int[] ary, int i, int end) {
         int left = i * 2 + 1;
-        int right = i * 2 + 2;
-        if (left < length) {
-            int target = left;
-            if (right < length && arr[right] > arr[left]) {
-                target = right;
+        int right = left + 1;
+        int k = left;
+        if (left < end) {
+            if (right < end && ary[right] > ary[left]) {
+                k = right;
             }
-            if (arr[target] > arr[i]) {
-                int temp = arr[i];
-                arr[i] = arr[target];
-                arr[target] = temp;
+
+            // 交换父子节点
+            if (ary[k] > ary[i]) {
+                int temp = ary[k];
+                ary[k] = ary[i];
+                ary[i] = temp;
+                // 递归调整子节点
+                doHeadSort(ary, k, end);
             }
-            adjustHeap(arr, target, length);
         }
     }
 }
