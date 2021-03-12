@@ -1,11 +1,14 @@
-package com.zgf.Test.mq.rocketmq;
+package com.zgf.Test.mq.rocketmq.productor;
 
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.remoting.common.RemotingHelper;
 
-public class Productor {
+/**
+ * 同步发送
+ */
+public class SyncProductor {
     public static void main(String[] args) throws Exception {
         //Instantiate with a producer group name.
         DefaultMQProducer producer = new
@@ -22,6 +25,7 @@ public class Productor {
                             i).getBytes(RemotingHelper.DEFAULT_CHARSET) /* Message body */
             );
             //Call send message to deliver message to one of brokers.
+            // 同步发送，关注返回值，默认超时时间 3000ms
             SendResult sendResult = producer.send(msg);
             System.out.printf("%s%n", sendResult);
         }
