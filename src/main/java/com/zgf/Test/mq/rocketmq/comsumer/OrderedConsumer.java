@@ -8,42 +8,46 @@ import org.apache.rocketmq.common.consumer.ConsumeFromWhere;
 import org.apache.rocketmq.common.message.MessageExt;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 public class OrderedConsumer {
     public static void main(String[] args) throws Exception {
         DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("example_group_name");
 
+        /**
+         * 设置Consumer第一次启动是从队列头部开始消费还是队列尾部开始消费<br>
+         * 如果非第一次启动，那么按照上次消费的位置继续消费
+         */
         consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
 
-        consumer.subscribe("TopicTest", "TagA || TagC || TagD");
+        consumer.subscribe("ZgfTopicTest", "TagA || TagC || TagD");
 
         consumer.registerMessageListener(new MessageListenerOrderly() {
 
-            AtomicLong consumeTimes = new AtomicLong(0);
+            Random random = new Random();
 
             @Override
-            public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs,
-                                                       ConsumeOrderlyContext context) {
-                context.setAutoCommit(false);
-                System.out.printf(Thread.currentThread().getName() + " Receive New Messages: " + msgs + "%n");
-                this.consumeTimes.incrementAndGet();
-                if ((this.consumeTimes.get() % 2) == 0) {
-                    return ConsumeOrderlyStatus.SUCCESS;
-                } else if ((this.consumeTimes.get() % 3) == 0) {
-                    return ConsumeOrderlyStatus.ROLLBACK;
-                } else if ((this.consumeTimes.get() % 4) == 0) {
-                    return ConsumeOrderlyStatus.COMMIT;
-                } else if ((this.consumeTimes.get() % 5) == 0) {
-                    context.setSuspendCurrentQueueTimeMillis(3000);
-                    return ConsumeOrderlyStatus.SUSPEND_CURRENT_QUEUE_A_MOMENT;
+            public ConsumeOrderlyStatus consumeMessage(List<MessageExt> msgs, ConsumeOrderlyContext context) {
+                context.setAutoCommit(true);
+                for (MessageExt msg : msgs) {
+                    // 可以看到每个queue有唯一的consume线程来消费, 订单对每个queue(分区)有序
+                    System.out.println("consumeThread=" + Thread.currentThread().getName() + "queueId=" + msg.getQueueId() + ", content:" + new String(msg.getBody()));
+                }
+
+                try {
+                    //模拟业务逻辑处理中...
+                    TimeUnit.SECONDS.sleep(random.nextInt(10));
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
                 return ConsumeOrderlyStatus.SUCCESS;
-
             }
         });
 
         consumer.start();
+
+        System.out.println("Consumer Started.");
 
         System.out.printf("Consumer Started.%n");
     }
