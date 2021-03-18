@@ -17,13 +17,13 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 事务消息
  * <p>
  * 事务消息不支持延时消息和批量消息。
- *
- *
+ * <p>
+ * <p>
  * 事务消息共有三种状态，提交状态、回滚状态、中间状态：
-
- TransactionStatus.CommitTransaction: 提交事务，它允许消费者消费此消息。
- TransactionStatus.RollbackTransaction: 回滚事务，它代表该消息将被删除，不允许被消费。
- TransactionStatus.Unknown: 中间状态，它代表需要检查消息队列来确定状态。
+ * <p>
+ * TransactionStatus.CommitTransaction: 提交事务，它允许消费者消费此消息。
+ * TransactionStatus.RollbackTransaction: 回滚事务，它代表该消息将被删除，不允许被消费。
+ * TransactionStatus.Unknown: 中间状态，它代表需要检查消息队列来确定状态。
  */
 public class TransactionProducer {
     public static void main(String[] args) throws Exception {
@@ -60,7 +60,7 @@ public class TransactionProducer {
                         new Message("ZgfTopicTest", tags[i % tags.length], "KEY" + i,
                                 ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
                 SendResult sendResult = producer.sendMessageInTransaction(msg, null);
-                System.out.printf("%s%n", sendResult);
+                System.out.printf("%s,%s%n", msg, sendResult);
                 Thread.sleep(10);
             } catch (MQClientException | UnsupportedEncodingException e) {
                 e.printStackTrace();
@@ -87,6 +87,7 @@ class TransactionListenerImpl implements TransactionListener {
 
     @Override
     public LocalTransactionState executeLocalTransaction(Message msg, Object arg) {
+        System.out.println("executeLocalTransaction-" + msg.getKeys());
         int value = transactionIndex.getAndIncrement();
         int status = value % 3;
         localTrans.put(msg.getTransactionId(), status);
@@ -95,6 +96,7 @@ class TransactionListenerImpl implements TransactionListener {
 
     @Override
     public LocalTransactionState checkLocalTransaction(MessageExt msg) {
+        System.out.println("checkLocalTransaction-" + msg.getKeys());
         Integer status = localTrans.get(msg.getTransactionId());
         if (null != status) {
             switch (status) {

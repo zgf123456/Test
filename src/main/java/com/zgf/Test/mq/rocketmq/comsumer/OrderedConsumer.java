@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class OrderedConsumer {
     public static void main(String[] args) throws Exception {
-        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("example_group_name");
+        DefaultMQPushConsumer consumer = new DefaultMQPushConsumer("zgf");
 
         /**
          * 设置Consumer第一次启动是从队列头部开始消费还是队列尾部开始消费<br>
