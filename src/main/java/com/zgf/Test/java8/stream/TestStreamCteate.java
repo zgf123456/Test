@@ -32,8 +32,11 @@ public class TestStreamCteate {
         }).limit(10);
         System.out.println(Arrays.toString(limit.toArray()));
 
-        Stream<Double> limit1 = Stream.generate(Math::random).limit(10);
-        System.out.println(Arrays.toString(limit1.toArray()));
+
+        // 方法引用，是指如果某个方法签名和接口恰好一致，就可以直接传入方法引用
+        // 这里generate需要一个Supplier参数，Supplier接口定义里面，只有一个无参，返回T的方法，与Math.random()方法的定义相同，可以直接当做函数接口传入
+        Stream<Double> generate1 = Stream.generate(Math::random);
+        Stream<Double> generate2 = Stream.generate(() -> Math.random());
     }
 
 }
