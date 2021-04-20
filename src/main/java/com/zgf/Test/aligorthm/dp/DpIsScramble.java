@@ -3,6 +3,8 @@ package com.zgf.Test.aligorthm.dp;
 import java.util.HashMap;
 
 /**
+ * https://leetcode-cn.com/problems/scramble-string/
+ * 给你两个 长度相等 的字符串 s1 和 s2，判断 s2 是否是 s1 的扰乱字符串。如果是，返回 true ；否则，返回 false 。
  * @author zgf
  * @date 2021-04-16 上午11:10
  */
